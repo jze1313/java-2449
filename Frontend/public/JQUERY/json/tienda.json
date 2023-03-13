@@ -7,12 +7,6 @@
       "garantia": "2024-01-02"
     },
     {
-      "id": 2,
-      "nombre": "Monitor",
-      "precio": 123.12,
-      "garantia": "2024-01-02"
-    },
-    {
       "id": 3,
       "nombre": "Ratón",
       "precio": 12.34,
@@ -71,6 +65,12 @@
       "nombre": "Ratón",
       "precio": 12.34,
       "garantia": "2023-12-31"
+    },
+    {
+      "id": 13,
+      "nombre": "sdfgsdfg",
+      "precio": 5665,
+      "garantia": "2023-01-01"
     }
   ]
 }
