@@ -27,9 +27,9 @@
 <script>
 	$(function() {
 		$('table').DataTable({
-		    language: {
-		        url: 'json/es-ES.json'
-		    }
+			language : {
+				url : 'json/es-ES.json'
+			}
 		});
 	});
 </script>
@@ -72,10 +72,26 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a></li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="admin/clientes">Administración</a></li>
-					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
-					<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-					<li class="nav-item navbar-text px-3">${sessionScope.usuario.nombre}</li>
+					<li class="nav-item"><a class="nav-link" href="amigos">Amigos</a></li>
+					<c:choose>
+						<c:when test="${sessionScope.usuario.nombre == null}">
+							<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+						</c:when>
+						<c:otherwise>
+							<c:if test="${sessionScope.usuario.rol.nombre == 'ADMIN'}">
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" role="button"
+								data-bs-toggle="dropdown" aria-expanded="false"> Administración </a>
+								<ul class="dropdown-menu">
+									<li><a class="dropdown-item" href="admin/clientes">Clientes</a></li>
+									<li><a class="dropdown-item" href="admin/usuarios">Usuarios</a></li>
+								</ul></li>
+							</c:if>
+							<li class="nav-item navbar-text px-3">${sessionScope.usuario.nombre}</li>
+							<li class="nav-item navbar-text px-3">${sessionScope.usuario.rol.nombre}</li>
+							<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 				<form class="d-flex align-items-baseline" action="cookies"
 					method="post">

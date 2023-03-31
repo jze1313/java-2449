@@ -1,17 +1,33 @@
 package com.ipartek.formacion.clientes.modelos;
 
+import java.util.Map;
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Usuario {
+	private Long id;
 	private String identificativo;
 	private String password;
 	private String nombre;
 
-	public Usuario(String identificativo, String password, String nombre) {
-		super();
-		this.identificativo = identificativo;
-		this.password = password;
-		this.nombre = nombre;
+	private Rol rol = new Rol(null, "USUARIO", null);
+	
+	private Map<String, String> errores = new TreeMap<>();
+	
+	public Usuario(Long id, String identificativo, String password, String nombre, Rol rol) {
+		setId(id);
+		setIdentificativo(identificativo);
+		setPassword(password);
+		setNombre(nombre);
+		setRol(rol);
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getIdentificativo() {
@@ -19,6 +35,9 @@ public class Usuario {
 	}
 
 	public void setIdentificativo(String identificativo) {
+		if(identificativo == null || identificativo.trim().length() < 2) {
+			errores.put("identificativo", "El identificativo es obligatorio y debe tener al menos dos caracteres");
+		}
 		this.identificativo = identificativo;
 	}
 
@@ -27,6 +46,9 @@ public class Usuario {
 	}
 
 	public void setPassword(String password) {
+		if(password == null || password.trim().length() < 4) {
+			errores.put("password", "La contraseña debe tener al menos 4 caracteres y es obligatoria");
+		}
 		this.password = password;
 	}
 
@@ -35,12 +57,30 @@ public class Usuario {
 	}
 
 	public void setNombre(String nombre) {
+		if(nombre == null || nombre.trim().length() < 2) {
+			errores.put("nombre", "El nombre es obligatorio y debe tener al menos dos caracteres");
+		}
 		this.nombre = nombre;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		if(rol == null) {
+			errores.put("rol", "Debes seleccionar un rol");
+		}
+		this.rol = rol;
+	}
+
+	public Map<String, String> getErrores() {
+		return errores;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(identificativo, nombre, password);
+		return Objects.hash(id, identificativo, nombre, password);
 	}
 
 	@Override
@@ -52,13 +92,18 @@ public class Usuario {
 		if (getClass() != obj.getClass())
 			return false;
 		Usuario other = (Usuario) obj;
-		return Objects.equals(identificativo, other.identificativo) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password);
+		return Objects.equals(id, other.id) && Objects.equals(identificativo, other.identificativo)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password);
 	}
 
 	@Override
 	public String toString() {
-		return "Usuario [identificativo=" + identificativo + ", password=" + password + ", nombre=" + nombre + "]";
+		return "Usuario [id=" + id + ", identificativo=" + identificativo + ", password=" + password + ", nombre="
+				+ nombre + "]";
+	}
+
+	public boolean isValido() {
+		return errores.size() == 0;
 	}
 
 }
