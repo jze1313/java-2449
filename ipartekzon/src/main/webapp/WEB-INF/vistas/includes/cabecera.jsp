@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.css">
 
-<script src="js/bootstrap.bundle.min.css"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+	<nav class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Ipartekzon</a>
 			<button class="navbar-toggler" type="button"
@@ -36,3 +36,11 @@
 			</div>
 		</div>
 	</nav>
+	<c:if test="${alerta != null}">
+		<div class="alert alert-${alerta.nivel} alert-dismissible fade show"
+			role="alert">
+			${alerta.mensaje}
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</c:if>

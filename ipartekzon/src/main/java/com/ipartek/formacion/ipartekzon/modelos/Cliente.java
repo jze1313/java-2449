@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -29,12 +30,13 @@ public class Cliente {
 
 	@NotNull
 	@Column(columnDefinition = "CHAR(9)")
-	@Pattern(regexp = "[XYZ\\d]\\d{7}[A-Z]")
+	@Pattern(regexp = "^[XYZ\\d]\\d{7}[A-Z]$")
 	private String nif;
 
 	@NotNull
 	@Size(min = 2, max = 50)
 	private String nombre;
 
-	private transient Set<Factura> facturas;
+	@OneToMany(mappedBy = "cliente")
+	private Set<Factura> facturas;
 }

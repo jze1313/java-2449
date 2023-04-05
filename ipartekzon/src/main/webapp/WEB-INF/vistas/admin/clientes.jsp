@@ -8,8 +8,8 @@
 	<thead class="table-dark">
 		<tr>
 			<th>Id</th>
-			<th>Nif</th>
 			<th>Nombre</th>
+			<th>Nif</th>
 			<th>OPCIONES</th>
 		</tr>
 	</thead>
@@ -21,8 +21,11 @@
 				<td>${c.nombre}</td>
 				<td>${c.nif}</td>
 				<td>
-					<a class="btn btn-sm btn-primary" href="#">Editar</a>
-					<a class="btn btn-sm btn-danger" href="#">Borrar</a>
+					<form action="admin/clientes" method="post">
+						<a class="btn btn-sm btn-primary" href="admin/cliente?id=${c.id}">Editar</a>
+						<input type="hidden" name="id" value="${c.id}">
+						<button class="btn btn-sm btn-danger">Borrar</button>
+					</form>
 				</td>
 			</tr>
 		</c:forEach>
@@ -34,7 +37,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<a class="btn btn-sm btn-primary" href="#">Añadir</a>
+				<a class="btn btn-sm btn-primary" href="admin/cliente">Añadir</a>
 			</td>
 		</tr>
 	</tfoot>

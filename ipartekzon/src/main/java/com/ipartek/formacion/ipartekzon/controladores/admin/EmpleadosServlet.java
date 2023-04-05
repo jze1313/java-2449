@@ -10,22 +10,17 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import static com.ipartek.formacion.ipartekzon.controladores.configuraciones.Globales.*;
 
-@WebServlet("/admin/clientes")
-public class ClientesServlet extends HttpServlet {
+@WebServlet("/admin/empleados")
+public class EmpleadosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setAttribute("clientes", CLIENTE_NEGOCIO.listado());
-		request.getRequestDispatcher(VISTAS + "/admin/clientes.jsp").forward(request, response);
+		request.setAttribute("empleados", EMPLEADO_NEGOCIO.listado());
+		request.getRequestDispatcher(VISTAS + "/admin/empleados.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String paramId = request.getParameter("id");
-		Long id = Long.parseLong(paramId);
-		
-		CLIENTE_NEGOCIO.eliminar(id);
-		
-		response.sendRedirect(request.getContextPath() + "/admin/clientes");
+		doGet(request, response);
 	}
 
 }
