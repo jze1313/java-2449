@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html th:replace="~{_plantilla :: plantilla(~{::title}, ~{::main})}"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Empleados</title>
+</head>
+<body>
+	<main>
+		<table class="table table-hover table-bordered table-striped">
+			<thead class="table-dark">
+				<tr>
+					<th>Id</th>
+					<th>NIF</th>
+					<th>Nombre</th>
+					<th>Sueldo</th>
+					<th>Jefe</th>
+					<th>OPCIONES</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="empleado: ${empleados}" th:object="${empleado}">
+					<th th:text="*{id}">1</th>
+					<td th:text="*{nif}">12345678Z</td>
+					<td th:text="*{nombre}">El nombre</td>
+					<td th:text="*{sueldo}">12345€</td>
+					<td th:text="*{jefe?.nombre}">El JEFE</td>
+					<td><a class="btn btn-sm btn-primary"
+						th:href="@{/admin/empleados/editar/{id}(id=*{id})}" href="#">Editar</a>
+						<a class="btn btn-sm btn-danger"
+						th:href="@{/admin/empleados/borrar/{id}(id=*{id})}" href="#">Borrar</a>
+					</td>
+				</tr>
+			</tbody>
+			<tfoot class="table-dark">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a class="btn btn-sm btn-primary"
+						th:href="@{/admin/empleados/anadir}" href="#">Añadir</a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</main>
+</body>
+</html>
